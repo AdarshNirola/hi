@@ -1,150 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #ffebee;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg, #ff007f, #000000);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
 
-        .container {
-            text-align: center;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-            z-index: 1;
-        }
+    .container {
+      text-align: center;
+      color: white;
+    }
 
-        h1 {
-            color: #e91e63;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
 
-        .buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
 
-        button {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        #yesBtn {
-            background: #e91e63;
-            color: white;
-        }
+    #yesButton {
+      background-color: #ff007f;
+      color: white;
+    }
 
-        #noBtn {
-            background: #607d8b;
-            color: white;
-            transition: all 0.3s ease;
-        }
+    #noButton {
+      background-color: #333;
+      color: white;
+    }
 
-        #message {
-            margin-top: 2rem;
-            font-size: 1.5rem;
-            color: #e91e63;
-            display: none;
-            animation: flash 1s infinite;
-        }
+    .heart {
+      position: absolute;
+      top: -10%;
+      animation: fall 5s linear infinite;
+      font-size: 2rem;
+      color: #ff007f;
+    }
 
-        @keyframes flash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+    @keyframes fall {
+      0% { transform: translateY(-10%); }
+      100% { transform: translateY(110vh); }
+    }
 
-        .heart {
-            position: absolute;
-            background: #ff4081;
-            pointer-events: none;
-            animation: float 3s linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-    </style>
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ff007f;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Will you be my Valentine? 💖</h1>
-        <div class="buttons">
-            <button id="yesBtn">YES!</button>
-            <button id="noBtn">NO</button>
-        </div>
-        <div id="message">I LOVE YOU!! Meet me on FaceTime 💌</div>
-        <audio id="song" hidden>
-            <source src="https://ia803008.us.archive.org/13/items/cant-help-falling-in-love_202309/Cant%20Help%20Falling%20In%20Love.mp3" type="audio/mpeg">
-        </audio>
+  <div class="container">
+    <h1>Will you be my Valentine?</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
     </div>
+  </div>
 
-    <script>
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const message = document.getElementById('message');
-        const song = document.getElementById('song');
+  <div id="popup" class="popup">I LOVE YOU Neha!! Meet me on FaceTime ❤️</div>
 
-        // Yes button handler
-        yesBtn.addEventListener('click', () => {
-            message.style.display = 'block';
-            song.play();
-            
-            // Create heart animations
-            for(let i = 0; i < 50; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.width = heart.style.height = Math.random() * 20 + 10 + 'px';
-                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-                document.body.appendChild(heart);
-                
-                setTimeout(() => heart.remove(), 3000);
-            }
-        });
+  <audio id="loveSong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-        // No button handler
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const popup = document.getElementById('popup');
+    const loveSong = document.getElementById('loveSong');
 
-        // Touch support for mobile devices
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
-    </script>
+    yesButton.addEventListener('click', () => {
+      // Play the love song
+      loveSong.play();
+
+      // Show the popup message
+      popup.style.display = 'block';
+
+      // Create heart animation
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        document.body.appendChild(heart);
+
+        // Remove hearts after animation ends
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    });
+
+    noButton.addEventListener('click', () => {
+      // Move the "No" button randomly within the page
+      const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+      noButton.style.position = 'absolute';
+      noButton.style.left = x + 'px';
+      noButton.style.top = y + 'px';
+    });
+  </script>
 </body>
 </html>
