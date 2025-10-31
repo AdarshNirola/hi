@@ -74,6 +74,30 @@
             gap: 5px;
         }
         
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
         .resume-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -233,6 +257,11 @@
                 gap: 10px;
             }
             
+            .social-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
             h1 {
                 font-size: 2rem;
             }
@@ -256,6 +285,102 @@
                 box-shadow: none;
                 border: 1px solid #eee;
             }
+        }
+        
+        /* PDF-specific styles for one-page layout */
+        .pdf-resume {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            background: white;
+            box-sizing: border-box;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .pdf-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .pdf-header .title {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .pdf-contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            font-size: 11px;
+        }
+        
+        .pdf-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .pdf-social-link {
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .pdf-resume-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        .pdf-sidebar, .pdf-main {
+            padding: 15px;
+        }
+        
+        .pdf-section {
+            margin-bottom: 20px;
+        }
+        
+        .pdf-section h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+        
+        .pdf-section h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .pdf-skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .pdf-skill-list li {
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        
+        .pdf-date {
+            font-size: 11px;
+            color: var(--gray);
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -282,6 +407,16 @@
                         <span>📍</span>
                         <span>Address: State Election Commission building, Sichey, Gangtok, Sikkim - 737101</span>
                     </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/" class="social-link" target="_blank">
+                        <span>🔗</span>
+                        <span>LinkedIn: www.linkedin.com/in/</span>
+                    </a>
+                    <a href="https://github.com/AdarshNirola" class="social-link" target="_blank">
+                        <span>🐱</span>
+                        <span>GitHub: github.com/AdarshNirola</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -345,7 +480,7 @@
                     </div>
                     <div class="education-item">
                         <h3>Class XII (ISC)</h3>
-                        <p>St. Paul's School, Darjeeling</p>
+                        <p>St. Paul's School, Darjaeling</p>
                         <p class="date">Percentage: 71.25%</p>
                     </div>
                     <div class="education-item">
@@ -408,37 +543,146 @@
         document.getElementById('downloadPdf').addEventListener('click', function() {
             // Show toast notification
             const toast = document.getElementById('downloadToast');
-            toast.textContent = "Downloading your resume...";
+            toast.textContent = "Generating your resume PDF...";
             toast.classList.add('show');
             
-            // Create a copy of the resume content to preserve original formatting
-            const resumeContent = document.getElementById('resumeContent');
-            const header = document.querySelector('header');
-            
-            // Create a container for the PDF
+            // Create a PDF-specific version of the resume
             const pdfContainer = document.createElement('div');
-            pdfContainer.style.padding = '20px';
-            pdfContainer.style.backgroundColor = 'white';
+            pdfContainer.className = 'pdf-resume';
             
-            // Clone the header and resume content
-            const headerClone = header.cloneNode(true);
-            const resumeClone = resumeContent.cloneNode(true);
+            // Create PDF header
+            const pdfHeader = document.createElement('div');
+            pdfHeader.className = 'pdf-header';
+            pdfHeader.innerHTML = `
+                <h1>ADARSH NIROLA</h1>
+                <div class="title">Full Stack Developer | Computer Science Engineer</div>
+                <div class="pdf-contact-info">
+                    <div class="contact-item">
+                        <span>DOB: 07/09/1998</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>Phone: 7384335089 / 6294174990</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>Email: anirola812@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>Address: State Election Commission building, Sichey, Gangtok, Sikkim - 737101</span>
+                    </div>
+                </div>
+                <div class="pdf-social-links">
+                    <a href="https://www.linkedin.com/in/" class="pdf-social-link">LinkedIn: www.linkedin.com/in/</a>
+                    <a href="https://github.com/AdarshNirola" class="pdf-social-link">GitHub: github.com/AdarshNirola</a>
+                </div>
+            `;
             
-            // Apply PDF-specific styles to header
-            headerClone.style.background = 'linear-gradient(135deg, #2c3e50, #3498db)';
-            headerClone.style.color = 'white';
-            headerClone.style.padding = '20px 0';
-            headerClone.style.borderRadius = '0';
-            headerClone.style.boxShadow = 'none';
-            headerClone.style.marginBottom = '20px';
+            // Create PDF content
+            const pdfContent = document.createElement('div');
+            pdfContent.className = 'pdf-resume-content';
+            pdfContent.innerHTML = `
+                <div class="pdf-sidebar">
+                    <div class="pdf-section">
+                        <h2>PROFILE</h2>
+                        <p>
+                            A results-oriented Computer Science Engineer with experience in software development and project management. 
+                            Proven ability in building and deploying full-stack mobile and web applications. Skilled in transforming 
+                            client requirements into robust, custom technical solutions. Currently working as a freelance developer, 
+                            delivering end-to-end projects from conception to deployment.
+                        </p>
+                    </div>
+                    
+                    <div class="pdf-section">
+                        <h2>TECHNICAL SKILLS</h2>
+                        <div class="pdf-skills-grid">
+                            <div class="skill-category">
+                                <h4>Programming Languages & Frameworks</h4>
+                                <ul class="pdf-skill-list">
+                                    <li>Python (Flask)</li>
+                                    <li>JavaScript</li>
+                                    <li>MERN Stack</li>
+                                    <li>React</li>
+                                    <li>Dart (Flutter)</li>
+                                    <li>Android Development</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Development Environments & Tools</h4>
+                                <ul class="pdf-skill-list">
+                                    <li>Mobile Development (Flutter, Android)</li>
+                                    <li>Web Development (Frontend & Backend)</li>
+                                    <li>Version Control (Git)</li>
+                                    <li>Project Management</li>
+                                    <li>Technical Consulting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pdf-section">
+                        <h2>EDUCATION</h2>
+                        <div class="education-item">
+                            <h3>Bachelor of Technology in Computer Science Engineering</h3>
+                            <p>Sikkim Manipal Institute of Technology</p>
+                            <p class="pdf-date">CGPA: 6.99</p>
+                        </div>
+                        <div class="education-item">
+                            <h3>Class XII (ISC)</h3>
+                            <p>St. Paul's School, Darjeeling</p>
+                            <p class="pdf-date">Percentage: 71.25%</p>
+                        </div>
+                        <div class="education-item">
+                            <h3>Class X (ICSE)</h3>
+                            <p>Tashi Namgyal Academy, Gangtok</p>
+                            <p class="pdf-date">Percentage: 74.8%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pdf-main">
+                    <div class="pdf-section">
+                        <h2>WORK EXPERIENCE</h2>
+                        <div class="experience-item">
+                            <h3>Freelance Full Stack Developer</h3>
+                            <p>Self-employed</p>
+                            <p class="pdf-date">2022 – Present</p>
+                            <ul class="pdf-skill-list">
+                                <li>Develop and deploy custom mobile and web applications for a diverse client base.</li>
+                                <li>Provide technical consulting to clients, advising on optimal technology stacks and architecture.</li>
+                                <li>Design and implement full-stack solutions using modern frameworks and cloud technologies.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <h3>District Rollout Manager</h3>
+                            <p>National Informatics Center, Sikkim (IRAD Project)</p>
+                            <p class="pdf-date">2021 – 2022</p>
+                            <ul class="pdf-skill-list">
+                                <li>Led the district-level rollout of digital governance initiatives, ensuring timely and effective implementation.</li>
+                                <li>Acted as the key liaison between central technical teams and local government stakeholders.</li>
+                                <li>Facilitated training and support to ensure smooth adoption of e-governance solutions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pdf-section">
+                        <h2>PROFESSIONAL SUMMARY</h2>
+                        <p>
+                            Computer Science Engineer with experience in software development and project management. 
+                            Experienced in mobile and web development with expertise in multiple programming languages 
+                            and frameworks. Proven ability to manage complex projects from conception to completion, 
+                            coordinating between technical teams and stakeholders to deliver effective solutions.
+                        </p>
+                    </div>
+                </div>
+            `;
             
-            // Append clones to PDF container
-            pdfContainer.appendChild(headerClone);
-            pdfContainer.appendChild(resumeClone);
+            // Append header and content to PDF container
+            pdfContainer.appendChild(pdfHeader);
+            pdfContainer.appendChild(pdfContent);
             
-            // PDF options
+            // PDF options optimized for one-page A4
             const opt = {
-                margin: 10,
+                margin: 0,
                 filename: 'Adarsh_Nirola_Resume.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
@@ -468,61 +712,6 @@
                 }, 3000);
             });
         });
-        
-        // Alternative download function with better error handling
-        function downloadResume() {
-            try {
-                const element = document.getElementById('resumeContent');
-                const header = document.querySelector('header');
-                
-                // Create a container for the PDF
-                const pdfContainer = document.createElement('div');
-                pdfContainer.style.padding = '20px';
-                pdfContainer.style.backgroundColor = 'white';
-                
-                // Clone the header and resume content
-                const headerClone = header.cloneNode(true);
-                const resumeClone = element.cloneNode(true);
-                
-                // Apply PDF-specific styles to header
-                headerClone.style.background = 'linear-gradient(135deg, #2c3e50, #3498db)';
-                headerClone.style.color = 'white';
-                headerClone.style.padding = '20px 0';
-                headerClone.style.borderRadius = '0';
-                headerClone.style.boxShadow = 'none';
-                headerClone.style.marginBottom = '20px';
-                
-                // Append clones to PDF container
-                pdfContainer.appendChild(headerClone);
-                pdfContainer.appendChild(resumeClone);
-                
-                // PDF options
-                const opt = {
-                    margin: 10,
-                    filename: 'Adarsh_Nirola_Resume.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { 
-                        scale: 2,
-                        useCORS: true,
-                        logging: false
-                    },
-                    jsPDF: { 
-                        unit: 'mm', 
-                        format: 'a4', 
-                        orientation: 'portrait' 
-                    }
-                };
-                
-                // Generate and download PDF
-                html2pdf().set(opt).from(pdfContainer).save();
-            } catch (error) {
-                console.error('Error generating PDF:', error);
-                alert('There was an error generating the PDF. Please try again.');
-            }
-        }
-        
-        // Add the alternative function as a backup
-        document.getElementById('downloadPdf').addEventListener('click', downloadResume);
     </script>
 </body>
 </html>
